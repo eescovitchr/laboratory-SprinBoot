@@ -33,15 +33,37 @@ public class AppoinmentModel {
 	@NotNull
 	private LocalTime hour;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "tests_id")
-	@JsonProperty(access = Access.WRITE_ONLY)
+	@JsonProperty(access = Access.READ_WRITE)
 	private TestModel tests;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "affilliate_id")
-	@JsonProperty(access = Access.WRITE_ONLY)
+	@JsonProperty(access = Access.READ_WRITE)
 	private AffilliateModel affilliates;
+
+	public AppoinmentModel() {
+		super();
+	}
+
+	public AppoinmentModel(int id, @NotNull LocalDate date, @NotNull LocalTime hour) {
+		super();
+		this.id = id;
+		this.date = date;
+		this.hour = hour;
+	}
+		
+
+	public AppoinmentModel(int id, @NotNull LocalDate date, @NotNull LocalTime hour, TestModel tests,
+			AffilliateModel affilliates) {
+		super();
+		this.id = id;
+		this.date = date;
+		this.hour = hour;
+		this.tests = tests;
+		this.affilliates = affilliates;
+	}
 
 	public int getId() {
 		return id;

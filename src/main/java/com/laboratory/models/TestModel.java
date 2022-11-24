@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tests")
 public class TestModel {
@@ -21,13 +23,33 @@ public class TestModel {
 	private int id;
 
 	@NotNull
-	private String nombre;
+	private String name;
 
 	@NotNull
 	private String description;
 
 	@OneToMany(mappedBy = "tests", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<AppoinmentModel> appoinments = new HashSet<>();
+
+	public TestModel() {
+		super();
+	}
+
+	public TestModel(int id, @NotNull String name, @NotNull String description) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+	}
+
+	public TestModel(int id, @NotNull String name, @NotNull String description, Set<AppoinmentModel> appoinments) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.appoinments = appoinments;
+	}
 
 	public int getId() {
 		return id;
@@ -37,12 +59,12 @@ public class TestModel {
 		this.id = id;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getName() {
+		return name;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getDescription() {
@@ -58,6 +80,7 @@ public class TestModel {
 	}
 
 	public void setAppoinments(Set<AppoinmentModel> appoinments) {
+		
 		this.appoinments = appoinments;
 	}
 

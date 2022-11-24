@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "affilliates")
 public class AffilliateModel {
@@ -29,7 +31,30 @@ public class AffilliateModel {
 	private String email;
 
 	@OneToMany(mappedBy = "affilliates", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<AppoinmentModel> appoinments = new HashSet<>();
+
+	public AffilliateModel() {
+		super();
+	}
+
+	public AffilliateModel(int id, @NotNull String name, @NotNull Integer age, @NotBlank String email) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.age = age;
+		this.email = email;
+	}
+
+	public AffilliateModel(int id, @NotNull String name, @NotNull Integer age, @NotBlank String email,
+			Set<AppoinmentModel> appoinments) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.age = age;
+		this.email = email;
+		this.appoinments = appoinments;
+	}
 
 	public int getId() {
 		return id;
@@ -69,6 +94,7 @@ public class AffilliateModel {
 
 	public void setAppoinments(Set<AppoinmentModel> appoinments) {
 		this.appoinments = appoinments;
+		
 	}
 
 }
