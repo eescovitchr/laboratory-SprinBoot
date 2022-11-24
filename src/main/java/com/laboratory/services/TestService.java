@@ -23,7 +23,7 @@ public class TestService {
 
 	public void post(TestModel test) {
 		testrepository.save(test);
-	}
+	}	
 
 	public void delete(Integer id) {
 		testrepository.deleteById(id);

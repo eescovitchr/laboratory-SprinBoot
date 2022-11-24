@@ -35,6 +35,14 @@ public class TestModel {
 	public TestModel() {
 		super();
 	}
+	
+
+	public TestModel(@NotNull String name, @NotNull String description) {
+		super();
+		this.name = name;
+		this.description = description;
+	}
+
 
 	public TestModel(int id, @NotNull String name, @NotNull String description) {
 		super();
