@@ -86,15 +86,16 @@ public class AppoinmentController {
 	
 	@GetMapping(path = "/{day}/{month}/{year}")
 	public ResponseEntity<List<AppoinmentModel>> getByDate(@PathVariable int day,@PathVariable int month, @PathVariable int year) {				
-		try {
-			LocalDate date = LocalDate.of(year, month, day);
-			//System.out.println(date);
-			List<AppoinmentModel>  appoinment = appoinmentrepository.findByDate(date);
 			
-			return new ResponseEntity<List<AppoinmentModel>>(appoinment,HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<List<AppoinmentModel> >(HttpStatus.NOT_FOUND);
+		LocalDate date = LocalDate.of(year, month, day);
+		List<AppoinmentModel>  appoinment = appoinmentrepository.findByDate(date);
+		
+		if (appoinment.isEmpty()) {
+			return new ResponseEntity<List<AppoinmentModel>>(HttpStatus.NO_CONTENT);
+		} else {
+			return new ResponseEntity<List<AppoinmentModel>>(appoinment, HttpStatus.OK);
 		}
+
 	}
 	
 	@PostMapping()
